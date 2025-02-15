@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimalistic Website</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: #fff;
+      padding: 20px 120px;
+      border-bottom: 1px solid #ccc;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .container {
+      display: grid;
+      grid-template-columns: 100px 1fr 20px 200px;
+      grid-gap: 0;
+      height: 100vh;
+      background-color: #fff;
+    }
+    
+    .left-column { }
+    
+    .central-column {
+      padding: 20px;
+      background-color: #fff;
+    }
+    
+    .spacer-column { }
+    
+    .right-column {
+      padding: 20px;
+      border-left: 1px solid #ccc;
+      background-color: #fff;
+    }
+    
+    .index-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .index-list li {
+      margin: 10px 0;
+    }
+    
+    .index-list a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+    
+    .index-list a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="page-title">Welcome</h1>
+  </header>
+  
+  <div class="container">
+    <div class="left-column"></div>
+    
+    <div class="central-column" id="content">
+      <p>Select a section from the index list on the right to view its content.</p>
+    </div>
+    
+    <div class="spacer-column"></div>
+    
+    <div class="right-column">
+      <nav class="index-list">
+        <ul>
+          <li><a href="#" onclick="showContent('About', [])">About</a></li>
+          <li><a href="#" onclick="showContent('Essays', ['Essay 1', 'Essay 2', 'Essay 3', 'Essay 4', 'Essay 5'])">Essays</a></li>
+          <li><a href="#" onclick="showContent('Fiction', ['Fiction 1', 'Fiction 2', 'Fiction 3'])">Fiction</a></li>
+          <li><a href="#" onclick="showContent('Poetry', ['Poem 1', 'Poem 2', 'Poem 3'])">Poetry</a></li>
+          <li><a href="#" onclick="showContent('Images', ['Image 1', 'Image 2', 'Image 3'])">Images</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  
+  <script>
+    const contentData = {
+      "Essay 1": "<p>This is the content of Essay 1. You can replace this with your actual essay.</p>",
+      "Essay 2": "<p>This is the content of Essay 2. Expand on your ideas here.</p>",
+      "Essay 3": "<p>Essay 3 discusses an interesting topic in detail.</p>",
+      "Essay 4": "<p>Content for Essay 4 goes here.</p>",
+      "Essay 5": "<p>Essay 5 provides insights into a deep subject.</p>",
+      "Fiction 1": "<p>Once upon a time, a great story began here.</p>",
+      "Fiction 2": "<p>This is a short fictional piece that captivates.</p>",
+      "Fiction 3": "<p>A mysterious adventure awaits in Fiction 3.</p>",
+      "Poem 1": "<p>Roses are red, violets are blue, Poem 1 is waiting for you.</p>",
+      "Poem 2": "<p>The gentle whispers of the wind tell a tale.</p>",
+      "Poem 3": "<p>Under the moonlight, the sea sings a song.</p>",
+      "Image 1": "<img src='image1.jpg' alt='Image 1' style='max-width:100%;'>",
+      "Image 2": "<img src='image2.jpg' alt='Image 2' style='max-width:100%;'>",
+      "Image 3": "<img src='image3.jpg' alt='Image 3' style='max-width:100%;'>"
+    };
+    
+    function showContent(title, subheadings) {
+      document.getElementById('page-title').textContent = title;
+      let contentDiv = document.getElementById('content');
+      contentDiv.innerHTML = '';
+      if (subheadings.length > 0) {
+        let list = '<ul>' + subheadings.map(item => `<li><a href="#" onclick="showSubheading('${item}')">${item}</a></li>`).join('') + '</ul>';
+        contentDiv.innerHTML += list;
+      } else {
+        contentDiv.innerHTML += '<p>Welcome to the ' + title + ' section.</p>';
+      }
+    }
+    
+    function showSubheading(subheading) {
+      document.getElementById('page-title').textContent = subheading;
+      document.getElementById('content').innerHTML = contentData[subheading] || "<p>Content not found for this subheading.</p>";
+    }
+  </script>
+</body>
+</html>
